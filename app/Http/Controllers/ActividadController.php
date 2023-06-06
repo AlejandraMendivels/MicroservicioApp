@@ -12,9 +12,9 @@ class ActividadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($codigo)
+    public function index()
     {
-        $actividades = Actividad ::where('codigoEstudiante',$codigo)->get();//Select
+        $actividades = Actividad::all();//Select
         $data = json_encode([
             "data"=> $actividades 
         ]);
@@ -46,9 +46,9 @@ class ActividadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($codigo)
     {
-       $actividades = Actividad::find($id);
+       $actividades = Actividad::find($codigo);
        return response (json_encode([
         "data" => $actividades
        ]));
@@ -62,9 +62,9 @@ class ActividadController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function update(Request $request, $codigo)
+    public function update(Request $request, $id)
     {
-        $actividades = Actividad::find($codigo);
+        $actividades = Actividad::find($id);
         $actividades->descripcion = $request->input('descripcion');
         $actividades->nota = $request->input('nota');
         $actividades->codigoEstudiante = $request->input('codigoEstudiante');
@@ -85,13 +85,16 @@ class ActividadController extends Controller
         $actividades = Actividad::find($id);
         if(empty($actividades)){
             return response (json_encode([
-                "data" => "El estudiante no existe"
+                "data" => "La Actividad no existe"
             ]),404);  //Registro No existe
         }
         $actividades->delete();
         return response(json_encode([
-            "data" => "Estudiante eliminado"
+            "data" => "Actividad eliminado"
         ]));
     }
 
 }
+
+
+
