@@ -24,8 +24,8 @@ $router->post('crearEstudiantes', 'EstudianteController@store');
 $router->put('modificarEstudiantes/{codigo}', 'EstudianteController@update');
 $router->delete('eliminarEstudiantes/{codigo}', 'EstudianteController@destroy');
 
-$router->get('actividades', 'ActividadController@index');
-$router->get('actividades/{id}', 'ActividadController@show');
-$router->post('actividades', 'ActividadController@store');
-$router->put('actividades/{id}', 'ActividadController@update');
-$router->delete('actividades/{id}', 'ActividadController@destroy');
+$router->get('miraractividades', 'ActividadController@index');
+$router->get('mostraractividades/{id}', 'ActividadController@show');
+$router->post('crearactividades', 'ActividadController@store');
+$router->put('modificaractividades/{id}', 'ActividadController@update');
+$router->delete('eliminaractividades/{id}', 'ActividadController@destroy');
