@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
+use App\Models\Estudiante;
 use Illuminate\Http\Request;
 
-class UsuarioController extends Controller
+class EstudianteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = Usuario ::all();//Select
+        $estudiantes = Estudiante ::all();//Select
         $data = json_encode([
-            "data"=> $usuarios 
+            "data"=> $estudiantes 
         ]);
         return response ($data, 200);
     }
@@ -30,13 +30,13 @@ class UsuarioController extends Controller
     
     public function store(Request $request)
     {
-        $usuario = new Usuario();
-        $usuario->name = $request->input('name');
-        $usuario->username = $request->input('name');
-        $usuario->password = $request->input('name');
-        $usuario->save();
+        $estudiantes = new Estudiante();
+        $estudiantes->codigo = $request->input('codigo');
+        $estudiantes->nombres = $request->input('nombres');
+        $estudiantes->apellidos = $request->input('apellidos');
+        $estudiantes->save();
         return response(json_encode([
-            "data" => "Usuario registrado"
+            "data" => "Estudiante registrado"
         ]));
     }
 
@@ -46,9 +46,9 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($codigo)
     {
-       $usuario = Usuario::find($id);
+       $usuario = Estudiante::find($codigo);
        return response (json_encode([
         "data" => $usuario
        ]));
@@ -62,15 +62,15 @@ class UsuarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function update(Request $request, $id)
+    public function update(Request $request, $codigo)
     {
-        $usuario = Usuario::find($id);
-        $usuario->name = $request->input('name');
-        $usuario->username = $request->input('name');
-        $usuario->password = $request->input('name');
-        $usuario->save();
+        $estudiantes = Estudiante::find($codigo);
+        // $estudiantes->codigo = $request->input('codigo');
+        $estudiantes->nombres = $request->input('nombres');
+        $estudiantes->apellidos = $request->input('apellidos');
+        $estudiantes->save();
         return response (json_encode([
-            "data" => "Registro actualizado"
+            "data" => "Estudiate actualizado"
         ]));
     }
 
@@ -80,17 +80,17 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($codigo)
     {
-        $usuario = Usuario::find($id);
-        if(empty($usuario)){
+        $estudiantes = Estudiante::find($codigo);
+        if(empty($estudiantes)){
             return response (json_encode([
-                "data" => "El usuario no existe"
-            ]),404);  
+                "data" => "El estudiante no existe"
+            ]),404);  //Registro No existe
         }
-        $usuario->delete();
+        $estudiantes->delete();
         return response(json_encode([
-            "data" => "Registro eliminado"
+            "data" => "Estudiante eliminado"
         ]));
     }
 
